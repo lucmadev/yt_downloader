@@ -1,29 +1,29 @@
 # Descargador de Youtube usando YT_dlp
 
-Ultima actualizacion: 15/09/2024
+Ultima actualizacion: 13/02/2025
 
-Impulsado por Python 3.12 y proximamente UI hecha con Flet
+Impulsado por Python 3.12 y UI hecha con Flet
 
-To Do List:
+ToDo List:
 
 ✅ Hecho 
 🚧 En Proceso
 ❌ Sin empezar
 
-❌ UI esencial (Flet)
+🚧 UI esencial (Flet)
 
 🚧 Selector de formatos
 
 🚧 Selector de calidad
 
-🚧 Selector de lugar de descarga
+✅ Selector de lugar de descarga
 
-❌ Mas webs aceptadas
+🚧 Mas webs aceptadas
 
 🚧 Quita de marca de agua
 
 ❌ Traduccion a varios idiomas (Menu)
 
-❌ Porting
+🚧 Porting (Windows & Android)
 
 🚧 Documentacion y comentarios detallados
