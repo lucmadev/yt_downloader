@@ -17,14 +17,19 @@ def main(page: ft.Page):
         format = "Video"
 
     def btnDownloadClicked(e):
-        if format == "Audio":
+        if urls.value == "":
+            page.add(
+            ft.Text("FALTA URL A DESCARGAR", color=ft.Colors.RED)
+            )
+        elif format == "Audio":
             dl.descargarMusica(urls.value)
         elif format == "Video":
             dl.descargarVideos(urls.value)
-        else:
+        elif format == "":
             page.add(
             ft.Text("ERROR DE FORMATO", color=ft.Colors.RED)
             )
+
 
     def get_directory_result(e: ft.FilePickerResultEvent):
         directory_path.value = e.path if e.path else "Cancelled!"
@@ -48,52 +53,33 @@ def main(page: ft.Page):
                                 ft.ElevatedButton("Cambiar lugar de descarga", icon=ft.Icons.FOLDER_OPEN, on_click=lambda _: get_directory_dialog.get_directory_path(), disabled=page.web)])
                                 )
         page.add(settingsView)
+
+    downloadView = ft.SafeArea(minimum_padding= 10, content=ft.Container(ft.Column([
+                    urls,
+                    btnFormat,
+                    ft.IconButton(icon=ft.Icons.DOWNLOAD, on_click=btnDownloadClicked, hover_color= '#FFFFFF'),
+                    ],
+                    ),
+            ))
     
     def downloadTab(e):
         page.clean()
-        downloadView = ft.SafeArea(minimum_padding= 10, content=ft.Container(ft.Column([
-                        urls,
-                        btnFormat,
-                        ft.IconButton(icon=ft.Icons.DOWNLOAD, on_click=btnDownloadClicked, hover_color= '#FFFFFF'),
-                        ],
-                        ),
-                ))
         page.add(downloadView)
 
 
     page.overlay.extend([get_directory_dialog])
-
-    # tabs = ft.Tabs(
-    #     selected_index=0,
-    #     animation_duration=300,
-    #     visible=True if not page.pwa else False,
-    #     tabs=[
-    #         ft.Tab(
-    #             text="Descargar",
-    #             content=downloadView,
-    #         ),
-    #         ft.Tab(
-    #             tab_content=ft.Icon(ft.Icons.SETTINGS),
-    #             content=settingsView,
-    #         ),
-    #     ],
-    # expand=1,
-    # )
-
     page.bottom_appbar = ft.BottomAppBar(
         bgcolor=ft.Colors.BLACK,
         shape=ft.NotchShape.CIRCULAR,
-        # visible=True if page.pwa else False,
         content=ft.Row(
             controls=[
                 ft.IconButton(icon=ft.Icons.DOWNLOAD, icon_color=ft.Colors.WHITE, on_click=downloadTab),
-                #ft.IconButton(icon=ft.Icons.MENU, icon_color=ft.Colors.WHITE),
                 ft.Container(expand=True),
                 ft.IconButton(icon=ft.Icons.SETTINGS, icon_color=ft.Colors.WHITE, on_click=settingsTab),
             ]
         ),
     )
 
-    page.add(page.bottom_appbar)
+    page.add(page.bottom_appbar, downloadView)
 
 ft.app(main)
